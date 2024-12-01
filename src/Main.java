@@ -31,42 +31,41 @@ public class Main extends PApplet {
         System.out.println("Mouse clicked");
 
         if (count >= 15) {
-            background(200); // Clear the background
-            drawFractal(height * 2, width / 2, height / 2, 10, false, false, 10); // Redraw the initial large fractal
-            count = 0; // Reset the count
+            background(200);
+            drawFractal(height * 2, width / 2, height / 2, 10, false, false, 10);
+            count = 0;
         }
 
-        int rand = (int) ((Math.random() * 10) + 10); // Random size factor
-        int randh = (int) (Math.random() * height); // Random vertical position
-        int randw = (int) (Math.random() * width); // Random horizontal position
+        int rand = (int) ((Math.random() * 10) + 10); // random size factor
+        int randh = (int) (Math.random() * height); // random vertical position
+        int randw = (int) (Math.random() * width); // random horizontal position
 
-        drawFractal(rand * 10, randw, randh, rand, true, false, 10); // Draw a smaller fractal
+        drawFractal(rand * 10, randw, randh, rand, true, false, 10);
         count++;
     }
 
     private void drawFractal(int size, int w, int h, int thickness, boolean randomColor, boolean white, int minLayers) {
         if (size <= 0 && minLayers <= 0) {
-            return; // Stop recursion only if size is too small and minimum layers are exhausted
+            return;
         }
 
         if (!white) {
             if (randomColor) {
-                int r = (int) random(0, 256); // Generate random red value
-                int g = (int) random(0, 256); // Generate random green value
-                int b = (int) random(0, 256); // Generate random blue value
-                Main.app.fill(r, g, b, 50); // Set random color
+                int r = (int) random(0, 256);
+                int g = (int) random(0, 256);
+                int b = (int) random(0, 256);
+                Main.app.fill(r, g, b, 50); //random color
             } else {
-                Main.app.fill(252, 197, 214); // Default pink color
+                Main.app.fill(252, 197, 214); // default pink color
             }
         } else {
-            Main.app.fill(255); // White color
+            Main.app.fill(255); // white color
         }
 
-        ellipse(w, h, size, size); // Draw the circle
+        ellipse(w, h, size, size);
 
-        white = !white; // Alternate colors
+        white = !white; // alternate colors
 
-        // Recursively draw the next layer
         drawFractal(Math.max(size - thickness, 0), w, h, thickness, randomColor, white, minLayers - 1);
     }
 }
